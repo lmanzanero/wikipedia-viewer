@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <style media="screen">
+  body {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-color: #AAF;
+    }
+    .search-wrapper {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      top: 50%;
+      left:50%;
+    }
+    .search-wrapper.active {}
+    .search-wrapper .input-holder {
+      height: 70px;
+      width:70px;
+      overflow: hidden;
+      background: rgba(255,255,255,0);
+      border-radius:6px;
+      position: relative;
+      transition: all 0.3s ease-in-out;
+    }
+    .search-wrapper.active .input-holder {
+      width:450px;
+      border-radius: 50px;
+      background: rgba(0,0,0,0.5);
+      transition: all .5s cubic-bezier(0.000, 0.105, 0.035, 1.570);
+    }
+
+    .search-wrapper .input-holder .search-input {
+      width:100%;
+      height: 50px;
+      padding:0px 70px 0 20px;
+      opacity: 0;
+      position: absolute;
+      top:0px;
+      left:0px;
+      background: transparent;
+      box-sizing: border-box;
+      border:none;
+      outline:none;
+      font-family:"Open Sans", Arial, Verdana;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 20px;
+      color:#FFF;
+      transform: translate(0, 60px);
+      transition: all .3s cubic-bezier(0.000, 0.105, 0.035, 1.570);
+      transition-delay: 0.3s;
+    }
+    .search-wrapper.active .input-holder .search-input {
+      opacity: 1;
+      transform: translate(0, 10px);
+    }
+    .search-wrapper .input-holder .search-icon {
+      width:70px;
+      height:70px;
+      border:none;
+      border-radius:6px;
+      background: #FFF;
+      padding:0px;
+      outline:none;
+      position: relative;
+      z-index: 2;
+      float:right;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+    }
+    .search-wrapper.active .input-holder .search-icon {
+      width: 50px;
+      height:50px;
+      margin: 10px;
+      border-radius: 30px;
+    }
+    .search-wrapper .input-holder .search-icon span {
+      width:22px;
+      height:22px;
+      display: inline-block;
+      vertical-align: middle;
+      position:relative;
+      transform: rotate(45deg);
+      transition: all .4s cubic-bezier(0.650, -0.600, 0.240, 1.650);
+    }
+    .search-wrapper.active .input-holder .search-icon span {
+      transform: rotate(-45deg);
+    }
+    .search-wrapper .input-holder .search-icon span::before, .search-wrapper .input-holder .search-icon span::after {
+      position: absolute;
+      content:'';
+    }
+    .search-wrapper .input-holder .search-icon span::before {
+      width: 4px;
+      height: 11px;
+      left: 9px;
+      top: 18px;
+      border-radius: 2px;
+      background: blue;
+    }
+    .search-wrapper .input-holder .search-icon span::after {
+      width: 14px;
+      height: 14px;
+      left: 0px;
+      top: 0px;
+      border-radius: 16px;
+      border: 4px solid blue;
+    }
+    .search-wrapper .close {
+      position: absolute;
+      z-index: 1;
+      top:24px;
+      right:20px;
+      width:25px;
+      height:25px;
+      cursor: pointer;
+      transform: rotate(-180deg);
+      transition: all .3s cubic-bezier(0.285, -0.450, 0.935, 0.110);
+      transition-delay: 0.2s;
+    }
+    .search-wrapper.active .close {
+      right:-50px;
+      transform: rotate(45deg);
+      transition: all .6s cubic-bezier(0.000, 0.105, 0.035, 1.570);
+      transition-delay: 0.5s;
+    }
+    .search-wrapper .close::before, .search-wrapper .close::after {
+      position:absolute;
+      content:'';
+      background: black;
+      border-radius: 2px;
+    }
+    .search-wrapper .close::before {
+      width: 5px;
+      height: 25px;
+      left: 10px;
+      top: 0px;
+    }
+    .search-wrapper .close::after {
+      width: 25px;
+      height: 5px;
+      left: 0px;
+      top: 10px;
+    }
+    .searchContainer{
+    position: relative;
+    margin: 40px;
+    }
+
+    .dataCon {
+    height: 115px;
+    width: 100%;
+    padding: 5px;
+    margin: 8px;
+    border-radius: 3px;
+    background: black;
+    opacity: 0.6;
+    color: green;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    }
+
+    .dataCon h1{
+    text-align: left;
+    }
+    .data {
+     margin: 0 auto;
+     width: 80%;
+    }
+
+    .headerBox {
+    font-family: Georgia, Serif;
+    }
+
+  </style>
+</head>
+<body class="container-fluid text-center">
+  <div class="headerBox">
+    <h2>WikiPedia Viewer by Luis Manzanero</h2>
+    <h4> Search for an Article or click <a href="https://en.wikipedia.org/wiki/Special:Random" target="_blank">HERE</a> for an random one </h4>
+  </di>
+    <div class="searchContainer container-fluid">
+      <div class="search-wrapper container-fluid">
+        <div class="input-holder">
+          <input type="text" class="search-input" placeholder="Type to search" />
+          <button class="search-icon" onclick="searchToggle(this, event);" type="submit"><span></span></button>
+        </div>
+        <span class="close" onclick="searchToggle(this, event);"></span>
+      </div>
+    </div>
+    <div class="data">
+    </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+function searchToggle(obj, evt){
+  var container = $(obj).closest('.search-wrapper');
+    if(!container.hasClass('active')){
+          container.addClass('active');
+          evt.preventDefault();
+      }
+      else if(container.hasClass('active') && $(obj).closest('.input-holder').length == 0){
+          container.removeClass('active');
+        // clear input
+          container.find('.search-input').val('');
+      }
+}
+$(document).ready(function() {
+ $('.search-input').keypress(function (e) {
+var key = e.which;
+if(key == 13)  // the enter key code
+{
+  $('.search-icon').click();
+}
+});
+
+$(".search-icon").click(function(data) {
+ $(".data").empty();
+ var mainInput = [];
+
+mainInput.push($(".search-input").val());
+  var input = mainInput.toString();
+
+var WikiApi = "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&generator=search&gsrsearch=" + input + "&callback=?";
+  console.log(WikiApi);
+
+  $.getJSON(WikiApi, function(result) {
+    var pagez = result.query.pages;
+    for (var x in pagez) {
+      console.log(pagez[x].title);
+      console.log(pagez[x].extract);
+      if(pagez[x].extract == undefined){
+        pagez[x].extract = "Don't know why it won't display content here";
+      }
+
+      $(".data").append('<div class="dataCon"'+ "<h1>" + pagez[x].title + "</h1> </br>" + "<p>" + pagez[x].extract + "</p>" + '</div>');
+    }
+  });
+});
+$(".close").click(function(){
+  $(".data").empty();
+});
+});
+</script>
+</body>
+</html>
