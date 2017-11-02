@@ -28,13 +28,13 @@
            <div class="searchResults">
              <ul class="collection">
                 <li class="collection-item avatar">
-                  <img src="images/yuna.jpg" alt="" class="circle">
+                  <!-- <img src="images/yuna.jpg" alt="" class="circle"> -->
                   <span class="title">Title</span>
                   <p>First Line <br>
                      Second Line
                   </p>
                   <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                </li>       
+                </li>
               </ul>
 
            </div>
@@ -51,5 +51,23 @@
    </div>
    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+   <script type="text/javascript">
+   $(document).ready(function() {
+     let search = document.querySelector('#search');
+     function getSearchInfo(){
+       let searchVal = search.value;
+       let api = `https://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&generator=search&gsrsearch=${searchVal}&callback=?`;
+       $.getJSON(api, function(result) {
+         let pages = result.query.pages;
+         for (var x in pagez) {
+           console.log(pagez[x].title);
+           console.log(pagez[x].extract); 
+           }
+
+       });
+}
+       search.addEventListener('input', getSearchInfo);
+  });
+   </script>
  </body>
  </html>
